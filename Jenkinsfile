@@ -1,17 +1,18 @@
 pipeline {
-  agent any
+    agent any
 
-  tools {
+    tools {
         maven 'maven'
         jdk 'jdk17' // Ensure this matches the name of the JDK installation in Jenkins Global Tool Configuration
     }
-   environment {
+
+    environment {
         JAVA_HOME = tool 'jdk17'
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
     }
 
-  stages {
-     stage('Build') {
+    stages {
+        stage('Build') {
             steps {
                 dir('C:/ProgramData/Jenkins/.jenkins/workspace/sample/employee') {
                     bat 'mvn clean install -Dmaven.test.failure.ignore=true'
@@ -19,15 +20,14 @@ pipeline {
             }
         }
 
-stage('Run') {
+        stage('Run') {
             steps {
                 script {
-                    def jarFilePath = C:/ProgramData/Jenkins/.jenkins/workspace/sample/employee/target/demo-0.0.1-SNAPSHOT.jar'
+                    def jarFilePath = 'C:/ProgramData/Jenkins/.jenkins/workspace/sample/employee/target/demo-0.0.1-SNAPSHOT.jar'
                     def batchScript = "cmd /c \"java -jar ${jarFilePath}\""
                     bat label: 'Run JAR in Background', script: batchScript
                 }
             }
         }
-    
-  }
+    }
 }
