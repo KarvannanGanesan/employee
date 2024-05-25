@@ -14,7 +14,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        dir('C:/ProgramData/Jenkins/.jenkins/workspace/demo/employee') {
+        dir('C:/ProgramData/Jenkins/.jenkins/workspace/sample/employee') {
           bat 'mvn clean -Dmaven.test.skip package'
         }
       }
@@ -27,7 +27,7 @@ pipeline {
       }
       steps {
         script {
-          def jarFilePath = 'C:/ProgramData/Jenkins/.jenkins/workspace/demo/employee/target/demo-0.0.1-SNAPSHOT.jar'
+          def jarFilePath = 'C:/ProgramData/Jenkins/.jenkins/workspace/sample/employee/target/demo-0.0.1-SNAPSHOT.jar'
           def batchScript = "cmd /c \"java -jar ${jarFilePath}\""
           bat label: 'Run JAR in Background', script: batchScript
         }
